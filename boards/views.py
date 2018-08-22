@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
+from django.utils import timezone
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
@@ -68,12 +69,14 @@ def reply_topic(request, pk, topic_pk):
     return render(request, "reply_topic.html", {"topic": topic, "form": form})
 
 def delete_post(request, pk, topic_pk, post_pk):
-    #post = get_object_or_404(Post, post.topic.board.pk=pk, post.topic.pk=topic_pk, pk=post_pk) 
+
+    post = Post.objects.get(pk=post_pk)
+    boards = Board.objects.all()
 
     if request.method == "POST":
         post.delete()
         messages.success(request, "Post successfully deleted!")
-        return HttpResponseRedirect("index")
+        return render(request, "index.html", {"boards": boards})
 
     return render(request, "post_delete.html")
 
