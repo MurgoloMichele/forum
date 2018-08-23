@@ -13,7 +13,7 @@ Users that have moderating powers can also delete other users posts.
    
 *[Installation](#installation)
 
-*[Setup](#setup)
+*[Usage](#usage)
 
 ## Requirements
 
